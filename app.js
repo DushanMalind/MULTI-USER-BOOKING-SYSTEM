@@ -52,6 +52,7 @@ const dotenv = require('dotenv');
 var usersRouter = require('./routes/users');
 const authRouter = require('./routes/authRoutes');
 const serviceRouter = require('./routes/serviceRoutes');
+const bookingRouter = require('./routes/bookingRoutes');
 
 dotenv.config();
 
@@ -66,6 +67,7 @@ app.use(cors());
 app.use('/users', usersRouter);
 app.use('/api',authRouter);
 app.use('/api',serviceRouter);
+app.use('/api',bookingRouter);
 
 
 //const CONNECTION_URL = process.env.MONGODB_URI || 'mongodb://localhost:27017/multi-user-booking';
