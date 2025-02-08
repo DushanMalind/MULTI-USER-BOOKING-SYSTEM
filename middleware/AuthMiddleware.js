@@ -1,4 +1,4 @@
-/*const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const UserModal = require('../models/User');
 
 const secret = 'test';
@@ -24,10 +24,10 @@ const AuthMiddleware = async (req, res, next) => {
     }
 };
 
-module.exports = AuthMiddleware;*/
+module.exports = AuthMiddleware;
 
 
-const jwt = require('jsonwebtoken');
+/*const jwt = require('jsonwebtoken');
 
 const authenticate = (req, res, next) => {
     const token = req.header('Authorization');
@@ -49,5 +49,5 @@ const authorizeAdmin = (req, res, next) => {
     next();
 };
 
-module.exports = { authenticate, authorizeAdmin };
+module.exports = { authenticate, authorizeAdmin };*/
 
