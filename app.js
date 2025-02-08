@@ -71,13 +71,11 @@ app.use('/api',bookingRouter);
 
 
 //const CONNECTION_URL = process.env.MONGODB_URI || 'mongodb://localhost:27017/multi-user-booking';
-const PORT = process.env.PORT|| 4000;
-
-/*mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
-    .catch((error) => console.log(`${error} did not connect`));*/
-
-mongoose.connect(process.env.MOGODB_URI).then(() => console.log(`Server Running on Port: http://localhost:${PORT}`));
+mongoose.connect(process.env.MOGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log(`Connected to MongoDB`);
+    })
+    .catch((error) => console.log(`${error} did not connect`));
 
 
 module.exports = app;
