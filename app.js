@@ -46,10 +46,12 @@ var express = require('express');
 const mongoose = require('mongoose');
 var bodyParser=require('body-parser');
 const cors=require('cors');
+const dotenv = require('dotenv');
 
 /*All Route Files*/
 
 
+dotenv.config();
 
 const app = express();
 
