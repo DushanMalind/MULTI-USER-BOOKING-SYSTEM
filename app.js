@@ -49,7 +49,7 @@ const cors=require('cors');
 const dotenv = require('dotenv');
 
 /*All Route Files*/
-
+var usersRouter = require('./routes/users');
 
 dotenv.config();
 
@@ -61,11 +61,17 @@ app.use(cors());
 
 
 /* Route Api */
+app.use('/users', usersRouter);
 
 
-const CONNECTION_URL = process.env.MONGODB_URI || 'mongodb://localhost:27017/multi-user-booking';
+//const CONNECTION_URL = process.env.MONGODB_URI || 'mongodb://localhost:27017/multi-user-booking';
 const PORT = process.env.PORT|| 4000;
 
-mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+/*mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
-    .catch((error) => console.log(`${error} did not connect`));
+    .catch((error) => console.log(`${error} did not connect`));*/
+
+mongoose.connect(process.env.MOGODB_URI).then(() => console.log(`Server Running on Port: http://localhost:${PORT}`));
+
+
+module.exports = app;

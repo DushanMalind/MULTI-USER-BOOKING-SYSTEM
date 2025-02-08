@@ -1,4 +1,4 @@
-const {Server } = require('socket.io');
+const { Server } = require('socket.io');
 
 let io;
 
@@ -21,11 +21,11 @@ const initSocket = (server) => {
     return io;
 };
 
-const getSocket = ()=> {
-    if (!io){
+const getSocket = () => {
+    if (!io) {
         throw new Error("Socket.io not initialized");
     }
     return io;
-}
+};
 
-module.exports = {initSocket,getSocket};
+module.exports = { initSocket, getSocket };
