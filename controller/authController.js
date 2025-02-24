@@ -14,7 +14,7 @@ exports.register = async (req, res) => {
     }
 };
 
-exports.login = async (req, res) => {
+/*exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
@@ -22,9 +22,42 @@ exports.login = async (req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
         }
 
-        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token });
+        const accessToken = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.json({ accessToken });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
+};*/
+
+exports.login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Find user by email
+        const user = await User.findOne({ email });
+        if (!user || !(await bcrypt.compare(password, user.password))) {
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
+
+        // Generate JWT Token
+        const accessToken = jwt.sign(
+            { id: user._id, role: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+        );
+
+        // Send response with token and user data
+        res.json({
+            accessToken,  // Rename 'token' to 'accessToken' to match frontend
+            result: {
+                id: user._id,
+                email: user.email,
+                role: user.role
+            }
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: "Server error" });
+    }
 };
+
