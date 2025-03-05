@@ -47,3 +47,31 @@ exports.cancelBooking = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+// Renaming availableSlotsing to availableSlots to match the route handler
+exports.availableSlots = async (req, res) => {
+    try {
+        const { serviceId } = req.params;
+
+        // Fetch the service by ID
+        const service = await Service.findById(serviceId);
+        if (!service) {
+            return res.status(404).json({ message: "Service not found" });
+        }
+
+        // Fetch all bookings for this service
+        const bookedSlots = await Booking.find({ service: serviceId }).select("slot");
+
+        // Remove booked slots from the availableSlots list
+        const availableSlots = service.availableSlots.filter(slot => {
+            // Check if the slot is booked
+            return !bookedSlots.some(booking => booking.slot.toISOString() === slot.toISOString());
+        });
+
+        res.json(availableSlots);  // Return the filtered available slots
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
